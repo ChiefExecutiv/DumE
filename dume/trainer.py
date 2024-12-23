@@ -41,8 +41,7 @@ class Trainer:
 
         # setup the optimizer
         self.optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
-        if not hasattr(config, 'grad_norm_clip'):
-            config.grad_norm_clip = 1.0  # or any default value you prefer
+        config.grad_norm_clip = 1.0 
 
         # dataloader
         train_loader = DataLoader(
