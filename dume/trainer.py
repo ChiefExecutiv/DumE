@@ -5,6 +5,10 @@ import torch
 from torch.utils.data.dataloader import DataLoader
 
 
+"""
+Training Script that can be used train any neural network. Courtesy of Andrej Karpathy
+"""
+
 class Trainer:
 
     def __init__(self, config, model, train_dataset):
@@ -14,7 +18,7 @@ class Trainer:
         self.train_dataset = train_dataset
         self.callbacks = defaultdict(list)
 
-        # determine the device to be trained on
+
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
         self.model = self.model.to(self.device)
@@ -86,3 +90,4 @@ class Trainer:
             # termination conditions
             if config.max_iters is not None and self.iter_num >= config.max_iters:
                 break
+

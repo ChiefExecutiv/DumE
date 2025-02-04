@@ -1,18 +1,14 @@
-This is a simple implementation of a GPT language model. It's a naive attempt I made over a random 
-weekend. It's a small language model dubbed **DumE**.
-DumE is trained on a Wikipedia article about the origins of the Universe.
-The original model is trained on a remote GPU in google Colab(training on a cpu is nerve-wrecking).
+## DumE
 
-After completing it's training run, DumE said it's first words:
-```
-The Big Bang was preceded by Sthew the eBig Bang theory's confluction is a comprehensive ever must have been withound 
-and out 20106 – each last horizon as muched that the universe, and today is very emery nearly possible trans; and the oldn baryon matter; and through galaxies ward and quasars and galaxies (with as billion years.
+**DumE** is a small language model that can be trained and run on CPU. More of an experimentation. 
+Trained on my laptop for about 45 minutes and it gave me some output:
 
-The universe resumpirality
-In a vistance of the age of the universe
-If the earliest anst describes then any ampecularing atums 
-he uniforpred every fred the expansion of the unive
+```markdown
+[Creative Writing] On a formy dray, you discover a feew etering the room bracks of continuous what poses the like jow oakes. This to magnethâ€™s at cille in the ot knighles dopecang on it will end on trars. When you sharper, and how in they clonflight the togerato algeno on and forgelo revoutionized ona consured of a you the total plant the room which are you?
+
+[Creative Writing attlnnom] The heart oc digation anciting of cases an shivilety digently one onligate pate to grew orest. The engineerine legg trate arch
 ```
 
-It doesn't make sense, but the output is fairly good(in my opinion) given that I trained it for about 2 minutes 
-on a dell laptop.
+Doesn't make any sense probably because it's trained with a make-shift dataset and little resources. However, with a much broader data set and more training time probably about 2.5 hours on a GPU, we could get much more meaningful and maybe even coherent output.
+
+Checkout model.py for the full definition and architecture of the model.  To train the model and save the learned weights, run `modelTrain.py` though you'll have to provide a dataset to train on or you could use the default one `A_dataset_cleaned.txt`. 

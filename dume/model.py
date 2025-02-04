@@ -2,10 +2,15 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 import math
-"""
-Definition of DumE, a small language model created by me on a weekend
-"""
 
+"""
+- This is the definition of DumE. DumE is a small, light-weight language model based on the GPT architecture, 
+so small that it can be trained on a laptop cpu, though on a relatively small dataset and low expectations. 
+
+- I believe, though, with enough training data and enough compute, the model could be able to
+generate coherent text.
+
+"""
 
 
 class CausalSelfAttention(nn.Module):
@@ -116,7 +121,7 @@ class DumE(nn.Module):
     def forward(self, idx, targets=None):
         B, T = idx.size()
 
-        # Ensure sequence length does not exceed block size
+        # Sequence length must not exceed block size
         assert T <= self.block_size, "Sequence length exceeds model block size"
 
         # Compute token and position embeddings
@@ -163,3 +168,5 @@ class DumE(nn.Module):
             idx = torch.cat((idx, next_token), dim=1)
 
         return idx
+    
+    

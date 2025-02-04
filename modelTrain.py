@@ -5,8 +5,9 @@ from dume.trainer import Trainer
 
 
 """
-This trains DumE as a character level language model on a Wikipedia article.
+This script trains DumE as a character level language model.
 """
+
 class ModelConfig:
     """
     Configuration for the language model.
@@ -45,7 +46,7 @@ class TrainerConfig:
 
     def summary(self):
         """
-        Prints a summary of the training configuration.
+        This just Prints a summary of the training configuration.
         """
         config_dict = vars(self)
         print("Trainer Configuration:")
@@ -73,7 +74,7 @@ class CharDataset(Dataset):
 
 if __name__ == "__main__":
     # Load text data
-    with open("big-bang.txt", "r") as f: # The dataset isn't included in this repository
+    with open("A_dataset_cleaned.txt", "r") as f: # The dataset isn't included in this repository
         text = f.read()
 
     # Initialize dataset and configurations
@@ -84,8 +85,8 @@ if __name__ == "__main__":
         vocab_size=train_dataset.vocab_size,
         block_size=block_size,
         embed_dim=256,
-        num_heads=8,
-        num_layers=6,
+        num_heads=4,
+        num_layers=4,
         dropout=0.1,
         attn_drop=0.1,
         resid_drop=0.1
@@ -100,24 +101,21 @@ if __name__ == "__main__":
         eval_iters=10
     )
 
-    # Create model and trainer
+    # Create model and instantiate the trainer
     model = DumE(model_config)
     trainer = Trainer(trainer_config, model, train_dataset)
 
-    # Print configurations
     model_config.summary()
     trainer_config.summary()
 
-    # Train the model
     trainer.run()
 
-    # Saving the model
     torch.save(model.state_dict(), "trained_model.pt")
     print("Model saved as trained_model.pt")
 
     # Generate samples
     with torch.no_grad():
-        context = "The Big Bang"
+        context = "The ancient Egyptians"
         x = torch.tensor([train_dataset.stoi[s] for s in context], dtype=torch.long)[None, ...].to(trainer.device)
         y = model.generate(x, 500, temperature=1.0, do_sample=True, top_k=10)[0]
         completion = ''.join([train_dataset.itos[int(i)] for i in y])
